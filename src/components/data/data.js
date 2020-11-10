@@ -1,32 +1,42 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import {connect} from "react-redux";
-import {Wrapper, TableWrapper, Table, TableRow, TableTitle} from "./styles";
-import DataRowItems from "../data-row-items/data-row-items";
-import Error from "../error/error";
+import {getRepositories, getRepositoriesRequestData} from "../../selectors/repositories/selectors";
+import {Wrapper} from "./styles";
+import DataItems from "../data-items/data-items";
 
-const Data = () => {
+const Data = ({repositories, repositoriesRequestData}) => {
   return (
     <Wrapper>
-      <TableWrapper>
 
-        {/* Data rows */}
-        <DataRowItems />
+      {/* Repositories list */}
+      <DataItems
+        // properties
+        repositories={repositories}
+      />
 
-        {/* Error message */}
-        <Error
-          // properies
-          requestData={[usersRequestData, temperatureRequestData]}
-        />
+      {/* Error message */}
+      {/* <Error
+        // properies
+        requestData={[repositoriesRequestData]}
+      /> */}
 
-      </TableWrapper>
     </Wrapper>
   );
 };
 
 Data.propTypes = {};
 
+const mapStateToProps = (state) => ({
+  repositories: getRepositories(state),
+  repositoriesRequestData: getRepositoriesRequestData(state),
+});
+
+const mapDispatchToProps = (dispatch) => ({
+
+});
+
 export default connect(
-  null,
-  null,
+  mapStateToProps,
+  mapDispatchToProps,
 )(Data);

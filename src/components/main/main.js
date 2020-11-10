@@ -1,5 +1,6 @@
 import React from "react";
 import {MainWrapper, SiteWrapper, Title} from "./styles";
+import Form from "../form/form";
 import Data from "../data/data";
 
 const Main = () => {
@@ -7,6 +8,9 @@ const Main = () => {
     <MainWrapper>
       <SiteWrapper>
         <Title>React App</Title>
+
+        {/* Form */}
+        <Form />
 
         {/* Data screen */}
         <Data />

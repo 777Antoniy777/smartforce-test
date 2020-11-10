@@ -4,12 +4,12 @@ import {visuallyHiddenStyle, BasedSiteWrapper} from "../app/based-styles";
 
 const MainWrapper = styled.main`
   min-height: 100vh;
-  background-image: linear-gradient(to right, ${ConstStyle.C_LIGHTBLUE} 50%, ${ConstStyle.C_LIGHTGRAY} 50%);
+  background-color: ${ConstStyle.C_LIGHTGRAY};
 `;
 
 const SiteWrapper = styled(BasedSiteWrapper)`
-  display: flex;
   min-height: inherit;
+  padding: 20px;
 `;
 
 const Title = styled.h1`

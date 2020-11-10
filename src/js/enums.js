@@ -12,4 +12,4 @@ const RequestStatus = {
   ERROR: 404,
 };
 
-export {AuthorizationStatus, RequestMessage, RequestStatus};
+export {RequestMessage, RequestStatus};

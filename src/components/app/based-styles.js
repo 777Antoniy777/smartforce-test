@@ -13,6 +13,12 @@ const visuallyHiddenStyle = {
   'overflow': 'hidden',
 };
 
+const ListStyle = {
+  'margin': 0,
+  'padding': 0,
+  'list-style': 'none',
+};
+
 const BasedSiteWrapper = styled.div`
   width: 90%;
   max-width: ${ConstStyle.SITE_WRAPPER_DT};
@@ -20,10 +26,4 @@ const BasedSiteWrapper = styled.div`
   margin-left: auto;
 `;
 
-const BasedList = styled.ul`
-  margin: 0;
-  padding: 0;
-  list-style: none;
-`;
-
-export {visuallyHiddenStyle, BasedSiteWrapper, BasedList};
+export {visuallyHiddenStyle, ListStyle, BasedSiteWrapper};
