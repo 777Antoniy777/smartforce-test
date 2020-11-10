@@ -1,7 +1,8 @@
+import {repositories} from "../../mocks/repositories";
 import {RepositoriesActionType} from "../../actions/repositories/action-creator";
 
 const initialState = {
-  repositories: [],
+  repositories: repositories,
   requestData: {
     status: null,
     message: '',
