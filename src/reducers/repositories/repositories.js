@@ -1,7 +1,9 @@
 import {RepositoriesActionType} from "../../actions/repositories/action-creator";
+import {updateArray} from "../../actions/action-helpers";
 
 const initialState = {
   repositories: [],
+  repositoriesPerPage: 7,
   requestData: {
     status: null,
     message: '',

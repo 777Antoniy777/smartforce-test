@@ -10,6 +10,7 @@ const UserAsyncActionCreator = {
         console.log(response.data)
         let {data} = response;
 
+        dispatch(UserActionCreator.setUsername(username));
         dispatch(UserActionCreator.getReposAmount(data.public_repos));
         dispatch(UserActionCreator.setRequestData({
           status: RequestStatus.OK,

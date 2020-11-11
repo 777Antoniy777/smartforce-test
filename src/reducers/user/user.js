@@ -1,6 +1,7 @@
 import {UserActionType} from "../../actions/user/action-creator";
 
 const initialState = {
+  username: '',
   reposAmount: null,
   requestData: {
     status: null,
@@ -14,6 +15,12 @@ export default function createState(state = initialState, action) {
       return {
         ...state,
         reposAmount: action.payload,
+      };
+
+    case UserActionType.SET_USERNAME:
+      return {
+        ...state,
+        username: action.payload,
       };
 
     case UserActionType.SET_USER_REQUEST_DATA:

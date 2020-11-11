@@ -4,8 +4,8 @@ import {RepositoriesActionCreator} from "./action-creator";
 // https://github.com/login/oauth/authorize
 // https://api.github.com/users/${username}/repos?per_page=100
 const RepositoriesAsyncActionCreator = {
-  getRepositories: (username) => (dispatch, getState, api) => {
-    return api.get(`https://api.github.com/users/${username}/repos?page=1&per_page=10`, {
+  getRepositories: (username, count, page) => (dispatch, getState, api) => {
+    return api.get(`https://api.github.com/users/${username}/repos?page=${page}&per_page=${count}`, {
       accept: 'application/vnd.github.v3+json',
     })
       .then((response) => {

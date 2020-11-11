@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import {connect} from "react-redux";
-import {getRepositoriesRequestData} from "../../selectors/repositories/selectors";
+import {getCountRepositories, getRepositoriesRequestData} from "../../selectors/repositories/selectors";
 import {getUserRequestData} from "../../selectors/user/selectors";
 import {RepositoriesAsyncActionCreator} from "../../actions/repositories/async-action-creator";
 import {UserAsyncActionCreator} from "../../actions/user/async-action-creator";
@@ -62,13 +62,13 @@ class Form extends React.PureComponent {
   }
 
   sendFormData = (name) => {
-    const {getRepositories, getUserData} = this.props;
+    const {repositoriesPerPage, getRepositories, getUserData} = this.props;
     const {value: nameValue} = name;
 
     this.validateInput(name, 'Name', this);
 
     if (nameValue) {
-      getRepositories(nameValue);
+      getRepositories(nameValue, repositoriesPerPage, 1);
       getUserData(nameValue)
     }
   }
@@ -134,6 +134,7 @@ class Form extends React.PureComponent {
 }
 
 Form.propTypes = {
+  repositoriesPerPage: PropTypes.number,
   repositoriesRequestData: PropTypes.arrayOf(
     PropTypes.shape({
       status: PropTypes.oneOfType([
@@ -157,13 +158,14 @@ Form.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
+  repositoriesPerPage: getCountRepositories(state),
   repositoriesRequestData: getRepositoriesRequestData(state),
   userRequestData: getUserRequestData(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getRepositories: (username) => {
-    dispatch(RepositoriesAsyncActionCreator.getRepositories(username));
+  getRepositories: (username, count, page) => {
+    dispatch(RepositoriesAsyncActionCreator.getRepositories(username, count, page));
   },
   getUserData: (username) => {
     dispatch(UserAsyncActionCreator.getUserData(username));
