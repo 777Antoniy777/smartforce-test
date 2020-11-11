@@ -1,7 +1,7 @@
-import {RepositoriesActionType} from "../../actions/repositories/action-creator";
+import {UserActionType} from "../../actions/user/action-creator";
 
 const initialState = {
-  repositories: [],
+  reposAmount: null,
   requestData: {
     status: null,
     message: '',
@@ -10,13 +10,13 @@ const initialState = {
 
 export default function createState(state = initialState, action) {
   switch (action.type) {
-    case RepositoriesActionType.GET_REPOSITORIES:
+    case UserActionType.GET_REPOS_AMOUNT:
       return {
         ...state,
-        repositories: action.payload,
+        reposAmount: action.payload,
       };
 
-    case RepositoriesActionType.SET_REPOSITORIES_REQUEST_DATA:
+    case UserActionType.SET_USER_REQUEST_DATA:
       return {
         ...state,
         requestData: action.payload,

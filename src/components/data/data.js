@@ -1,35 +1,39 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import {connect} from "react-redux";
-import {getRepositories, getRepositoriesRequestData} from "../../selectors/repositories/selectors";
-import {Wrapper} from "./styles";
+import {getRepositories} from "../../selectors/repositories/selectors";
+import {getReposAmount} from "../../selectors/user/selectors";
+import {Wrapper, Title} from "./styles";
 import DataItems from "../data-items/data-items";
 
-const Data = ({repositories, repositoriesRequestData}) => {
+const Data = ({repositories, reposAmount}) => {
   return (
-    <Wrapper>
+    <React.Fragment>
 
-      {/* Repositories list */}
-      <DataItems
-        // properties
-        repositories={repositories}
-      />
+      { reposAmount &&
+        <Wrapper>
+          <Title>У вас {reposAmount} репозиториев</Title>
 
-      {/* Error message */}
-      {/* <Error
-        // properies
-        requestData={[repositoriesRequestData]}
-      /> */}
+          {/* Repositories list */}
+          <DataItems
+            // properties
+            repositories={repositories}
+          />
+        </Wrapper>
+      }
 
-    </Wrapper>
+    </React.Fragment>
   );
 };
 
-Data.propTypes = {};
+Data.propTypes = {
+  repositories: PropTypes.any,
+  reposAmount: PropTypes.number,
+};
 
 const mapStateToProps = (state) => ({
   repositories: getRepositories(state),
-  repositoriesRequestData: getRepositoriesRequestData(state),
+  reposAmount: getReposAmount(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
