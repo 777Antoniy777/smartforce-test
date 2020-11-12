@@ -10,11 +10,17 @@ const RepositoriesAsyncActionCreator = {
     })
       .then((response) => {
         let {data} = response;
-        console.log(data)
-        const reposArr = data.map(elem => elem.name);
-        // console.log(reposArr)
 
-        dispatch(RepositoriesActionCreator.getRepositories(reposArr));
+        const reposArr = data.map(elem => elem.name);
+        const startIndex = (page - 1) * count;
+        const endIndex = startIndex + count;
+        const obj = {
+          array: reposArr,
+          startIndex,
+          endIndex,
+        };
+
+        dispatch(RepositoriesActionCreator.getRepositories(obj));
         dispatch(RepositoriesActionCreator.setRequestData({
           status: RequestStatus.OK,
           message: '',

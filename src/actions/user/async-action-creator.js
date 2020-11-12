@@ -1,5 +1,6 @@
 import {RequestMessage, RequestStatus} from "../../js/enums";
 import {UserActionCreator} from "./action-creator";
+import {RepositoriesActionCreator} from "../repositories/action-creator";
 
 const UserAsyncActionCreator = {
   getUserData: (username) => (dispatch, getState, api) => {
@@ -12,6 +13,7 @@ const UserAsyncActionCreator = {
 
         dispatch(UserActionCreator.setUsername(username));
         dispatch(UserActionCreator.getReposAmount(data.public_repos));
+        dispatch(RepositoriesActionCreator.setRepositoriesLength(data.public_repos));
         dispatch(UserActionCreator.setRequestData({
           status: RequestStatus.OK,
           message: '',

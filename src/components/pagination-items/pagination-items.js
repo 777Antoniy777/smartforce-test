@@ -10,10 +10,19 @@ class PaginationItem extends React.PureComponent {
   handleButtonClick = (evt) => {
     const {username, repositoriesPerPage, elem, getRepositories} = this.props;
     evt.preventDefault();
+    const isExistArray = this.checkArray();
 
-    if (elem !== 1) {
+    if (elem !== 1 && !isExistArray) {
       getRepositories(username, repositoriesPerPage, elem);
     }
+  }
+
+  checkArray = () => {
+    const {repositories, repositoriesPerPage, elem} = this.props;
+    const startIndex = (elem - 1) * repositoriesPerPage;
+    const element = repositories.find((elem, i) => i === startIndex)
+
+    return element;
   }
 
   render() {
@@ -27,7 +36,7 @@ class PaginationItem extends React.PureComponent {
   }
 }
 
-const PaginationItems = ({username, repositoriesPerPage, reposAmount, getRepositories}) => {
+const PaginationItems = ({repositories, username, repositoriesPerPage, reposAmount, getRepositories}) => {
   const buttons = [];
   const pageAmount = Math.ceil(reposAmount / repositoriesPerPage);
 
@@ -38,6 +47,7 @@ const PaginationItems = ({username, repositoriesPerPage, reposAmount, getReposit
         key={i}
         elem={i + 1}
         index={i}
+        repositories={repositories}
         username={username}
         repositoriesPerPage={repositoriesPerPage}
         // handlers
@@ -60,12 +70,14 @@ const PaginationItems = ({username, repositoriesPerPage, reposAmount, getReposit
 PaginationItem.propTypes = {
   elem: PropTypes.number,
   index: PropTypes.number,
+  repositories: PropTypes.arrayOf(PropTypes.string),
   username: PropTypes.string,
   repositoriesPerPage: PropTypes.number,
   getRepositories: PropTypes.func,
 };
 
 PaginationItems.propTypes = {
+  repositories: PropTypes.arrayOf(PropTypes.string),
   username: PropTypes.string,
   repositoriesPerPage: PropTypes.number,
   reposAmount: PropTypes.number,

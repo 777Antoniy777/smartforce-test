@@ -1,5 +1,5 @@
 import {RepositoriesActionType} from "../../actions/repositories/action-creator";
-import {updateArray} from "../../actions/action-helpers";
+import {updateArray, changeArrayLength} from "../../actions/action-helpers";
 
 const initialState = {
   repositories: [],
@@ -15,7 +15,13 @@ export default function createState(state = initialState, action) {
     case RepositoriesActionType.GET_REPOSITORIES:
       return {
         ...state,
-        repositories: action.payload,
+        repositories: updateArray(state.repositories, action.payload),
+      };
+
+    case RepositoriesActionType.SET_REPOSITORIES_LENGTH:
+      return {
+        ...state,
+        repositories: changeArrayLength(state.repositories, action.payload),
       };
 
     case RepositoriesActionType.SET_REPOSITORIES_REQUEST_DATA:

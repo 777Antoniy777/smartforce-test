@@ -29,6 +29,7 @@ const Data = ({username, repositories, repositoriesPerPage, reposAmount, getRepo
             {/* Repositories list */}
             <PaginationItems
               // properties
+              repositories={repositories}
               username={username}
               repositoriesPerPage={repositoriesPerPage}
               reposAmount={reposAmount}

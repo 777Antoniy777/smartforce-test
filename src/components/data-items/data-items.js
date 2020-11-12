@@ -4,7 +4,11 @@ import {List, Item} from "./styles";
 
 const DataItem = ({elem}) => {
   return (
-    <Item>{elem}</Item>
+    <React.Fragment>
+      { elem &&
+        <Item>{elem}</Item>
+      }
+    </React.Fragment>
   );
 }
 

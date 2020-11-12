@@ -7,10 +7,13 @@ const updateItem = (array, payload) => {
 };
 
 const updateArray = (array, payload) => {
+  array.length = 40;
+  const {array: newArray, startIndex, endIndex} = payload;
+
   return [
-    ...array.slice(0, payload.index),
-    ...payload.array,
-    ...array.slice(payload.index + 1)
+    ...array.slice(0, startIndex),
+    ...newArray,
+    ...array.slice(endIndex)
   ];
 };
 
@@ -22,4 +25,12 @@ const addItem = (array, payload) => {
   return [...array.slice(0, payload.index), payload];
 }
 
-export {updateItem, deleteItem, addItem, updateArray};
+const changeArrayLength = (array, payload) => {
+  array.length = payload;
+
+  return [
+    ...array.slice()
+  ]
+};
+
+export {updateItem, deleteItem, addItem, updateArray, changeArrayLength};
