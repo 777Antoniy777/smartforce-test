@@ -3,8 +3,8 @@ import {ConstStyle} from "../app/const-styles";
 
 const Wrapper = styled.section`
   display: flex;
-  width: 100%;
-  margin-bottom: 20px;
+  width: 244px;
+  margin: 0 auto 20px;
   padding: 20px;
   font-size: 16px;
   line-height: 20px;
@@ -13,24 +13,10 @@ const Wrapper = styled.section`
   border-radius: 15px;
 `;
 
-const InputsWrapper = styled.div`
-  display: flex;
-  width: 100%;
-  margin-bottom: 10px;
-`;
-
 const SearchWrapper = styled.div`
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
-  width: 50%;
-  margin-right: 10px;
-  padding: 10px;
-  border: 2px solid ${ConstStyle.C_BLACK};
-`;
-
-const LoginWrapper = styled.div`
-  display: flex;
-  width: 50%;
   padding: 10px;
   border: 2px solid ${ConstStyle.C_BLACK};
 `;
@@ -38,7 +24,6 @@ const LoginWrapper = styled.div`
 const FormWrapper = styled.form`
   display: flex;
   flex-direction: column;
-  width: 100%;
 `;
 
 const InputWrapper = styled.div`
@@ -91,4 +76,4 @@ const ErrorMessage = styled.p`
   color: ${ConstStyle.C_ALIZARIN_CRIMSON};
 `;
 
-export {Wrapper, InputsWrapper, SearchWrapper, LoginWrapper, FormWrapper, InputWrapper, Button, ErrorMessage};
+export {Wrapper, SearchWrapper, FormWrapper, InputWrapper, Button, ErrorMessage};

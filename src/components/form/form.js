@@ -6,7 +6,7 @@ import {getUserRequestData} from "../../selectors/user/selectors";
 import {RepositoriesActionCreator} from "../../actions/repositories/action-creator";
 import {RepositoriesAsyncActionCreator} from "../../actions/repositories/async-action-creator";
 import {UserAsyncActionCreator} from "../../actions/user/async-action-creator";
-import {Wrapper, InputsWrapper, SearchWrapper, LoginWrapper, FormWrapper, InputWrapper, Button, ErrorMessage} from "./styles";
+import {Wrapper, SearchWrapper, FormWrapper, InputWrapper, Button, ErrorMessage} from "./styles";
 import Error from "../error/error";
 
 class Form extends React.PureComponent {
@@ -16,14 +16,6 @@ class Form extends React.PureComponent {
       message: '',
     },
     search: {
-      value: '',
-      message: '',
-    },
-    login: {
-      value: '',
-      message: '',
-    },
-    password: {
       value: '',
       message: '',
     },
@@ -77,7 +69,7 @@ class Form extends React.PureComponent {
       if (searchValue) {
         getCurrentRepository(nameValue, searchValue);
       } else {
-        getRepositories(nameValue, repositoriesPerPage, 1);
+        getRepositories(nameValue, repositoriesPerPage, 1, true);
         setRepositoriesPage(1);
         getUserData(nameValue);
       }
@@ -86,76 +78,48 @@ class Form extends React.PureComponent {
 
   render() {
     const {repositoriesRequestData, userRequestData} = this.props;
-    const {name, search, login, password} = this.state;
+    const {name, search} = this.state;
     const {value: nameValue, message: nameMessage} = name;
     const {value: searchValue, message: searchMessage} = search;
-    const {value: loginValue, message: loginMessage} = login;
-    const {value: passwordValue, message: passwordMessage} = password;
 
     return (
       <Wrapper>
-          <InputsWrapper>
-            <SearchWrapper>
-              <FormWrapper action="#" method="POST" onSubmit={this.handleFormSubmit}>
-                <InputWrapper>
-                  <label htmlFor="name">User name</label>
-                  <input id="name" type="text" value={nameValue} name="name" placeholder="Type user name" onChange={this.handleInputChange} />
+        <SearchWrapper>
+          <FormWrapper action="#" method="POST" onSubmit={this.handleFormSubmit}>
+            <InputWrapper>
+              <label htmlFor="name">User name</label>
+              <input id="name" type="text" value={nameValue} name="name" placeholder="Type user name" onChange={this.handleInputChange} />
 
-                  { nameMessage &&
-                    <ErrorMessage>{nameMessage}</ErrorMessage>
-                  }
-                </InputWrapper>
+              { nameMessage &&
+                <ErrorMessage>{nameMessage}</ErrorMessage>
+              }
+            </InputWrapper>
 
-                <InputWrapper>
-                  <label htmlFor="search">Repository</label>
-                  <input id="search" type="search" value={searchValue} name="search" placeholder="Type repository" onChange={this.handleInputChange} />
+            <InputWrapper>
+              <label htmlFor="search">Repository</label>
+              <input id="search" type="search" value={searchValue} name="search" placeholder="Type repository" onChange={this.handleInputChange} />
 
-                  { searchMessage &&
-                    <ErrorMessage>{searchMessage}</ErrorMessage>
-                  }
-                </InputWrapper>
+              { searchMessage &&
+                <ErrorMessage>{searchMessage}</ErrorMessage>
+              }
+            </InputWrapper>
 
-                <Button type="submit" onClick={this.handleButtonClick}>
+            <Button type="submit" onClick={this.handleButtonClick}>
 
-                  { searchValue
-                    ? 'Search'
-                    : 'Download'
-                  }
+              { searchValue
+                ? 'Search'
+                : 'Download'
+              }
 
-                </Button>
+            </Button>
 
-                {/* Error message */}
-                <Error
-                  // properies
-                  requestData={[repositoriesRequestData, userRequestData]}
-                />
-              </FormWrapper>
-            </SearchWrapper>
-
-            <LoginWrapper>
-              <FormWrapper action="#" method="POST">
-                <InputWrapper>
-                  <label htmlFor="login">Login</label>
-                  <input id="login" type="text" value={loginValue} name="login" placeholder="Type login" onChange={this.handleInputChange} />
-
-                  { loginMessage &&
-                    <ErrorMessage>{loginMessage}</ErrorMessage>
-                  }
-                </InputWrapper>
-
-                <InputWrapper>
-                  <label htmlFor="password">Password</label>
-                  <input id="password" type="password" value={passwordValue} name="password" placeholder="Type password" onChange={this.handleInputChange} />
-
-                  { passwordMessage &&
-                    <ErrorMessage>{passwordMessage}</ErrorMessage>
-                  }
-                </InputWrapper>
-
-                <Button type="submit">Login</Button>
-              </FormWrapper>
-            </LoginWrapper>
-          </InputsWrapper>
+            {/* Error message */}
+            <Error
+              // properies
+              requestData={[repositoriesRequestData, userRequestData]}
+            />
+          </FormWrapper>
+        </SearchWrapper>
       </Wrapper>
     );
   }
@@ -194,8 +158,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getRepositories: (username, count, page) => {
-    dispatch(RepositoriesAsyncActionCreator.getRepositories(username, count, page));
+  getRepositories: (username, count, page, flag) => {
+    dispatch(RepositoriesAsyncActionCreator.getRepositories(username, count, page, flag));
   },
   getCurrentRepository: (username, repository) => {
     dispatch(RepositoriesAsyncActionCreator.getCurrentRepository(username, repository));

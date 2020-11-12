@@ -31,7 +31,7 @@ const Data = ({username, repositories, currentRepository, repositoriesPage, repo
       )
     }
 
-    if (currentRepository) {
+    if (username && currentRepository) {
       component = (
         <DataItemsWrapper>
           <Title>Найден репозиторий</Title>
@@ -53,24 +53,24 @@ const Data = ({username, repositories, currentRepository, repositoriesPage, repo
 
       {createDataItemsWrapper()}
 
-      { !currentRepository &&
-        <React.Fragment>
-          <PaginationItemsWrapper>
+      { username &&
+        !currentRepository &&
+        <PaginationItemsWrapper>
 
-            {/* Repositories list */}
-            <PaginationItems
-              // properties
-              repositories={repositories}
-              username={username}
-              repositoriesPerPage={repositoriesPerPage}
-              reposAmount={reposAmount}
-              // handlers
-              getRepositories={getRepositories}
-              setRepositoriesPage={setRepositoriesPage}
-            />
+          {/* Repositories list */}
+          <PaginationItems
+            // properties
+            repositories={repositories}
+            username={username}
+            repositoriesPerPage={repositoriesPerPage}
+            repositoriesPage={repositoriesPage}
+            reposAmount={reposAmount}
+            // handlers
+            getRepositories={getRepositories}
+            setRepositoriesPage={setRepositoriesPage}
+          />
 
-          </PaginationItemsWrapper>
-        </React.Fragment>
+        </PaginationItemsWrapper>
       }
 
     </Wrapper>
@@ -98,8 +98,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getRepositories: (username, count, page) => {
-    dispatch(RepositoriesAsyncActionCreator.getRepositories(username, count, page));
+  getRepositories: (username, count, page, flag, reposAmount) => {
+    dispatch(RepositoriesAsyncActionCreator.getRepositories(username, count, page, flag, reposAmount));
   },
   setRepositoriesPage: (page) => {
     dispatch(RepositoriesActionCreator.setRepositoriesPage(page));

@@ -2,7 +2,6 @@ const RepositoriesActionType = {
   GET_REPOSITORIES: 'GET_REPOSITORIES',
   GET_CURRENT_REPOSITORY: 'GET_CURRENT_REPOSITORY',
   SET_REPOSITORIES_PAGE: 'SET_REPOSITORIES_PAGE',
-  SET_REPOSITORIES_LENGTH: 'SET_REPOSITORIES_LENGTH',
   SET_REPOSITORIES_REQUEST_DATA: 'SET_REPOSITORIES_REQUEST_DATA',
 };
 
@@ -19,11 +18,6 @@ const RepositoriesActionCreator = {
 
   setRepositoriesPage: (data) => ({
     type: RepositoriesActionType.SET_REPOSITORIES_PAGE,
-    payload: data,
-  }),
-
-  setRepositoriesLength: (data) => ({
-    type: RepositoriesActionType.SET_REPOSITORIES_LENGTH,
     payload: data,
   }),
 

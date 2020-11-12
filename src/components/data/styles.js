@@ -2,7 +2,9 @@ import styled from "styled-components";
 import {ConstStyle} from "../app/const-styles";
 
 const Wrapper = styled.section`
+  max-width: 600px;
   width: 100%;
+  margin: 0 auto;
   font-size: 18px;
   line-height: 22px;
   color: ${ConstStyle.C_BLACK};
@@ -16,7 +18,7 @@ const DataItemsWrapper = styled.div`
 `;
 
 const PaginationItemsWrapper = styled.div`
-  padding: 10px 0;
+  padding: 10px;
   background-color: ${ConstStyle.C_WHITE};
   border-radius: 15px;
 `;

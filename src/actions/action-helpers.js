@@ -7,8 +7,14 @@ const updateItem = (array, payload) => {
 };
 
 const updateArray = (array, payload) => {
-  array.length = 40;
-  const {array: newArray, startIndex, endIndex} = payload;
+  const {array: newArray} = payload;
+
+  if (payload.flag) {
+    return [...newArray];
+  }
+
+  const {startIndex, endIndex, reposAmount} = payload;
+  array.length = reposAmount;
 
   return [
     ...array.slice(0, startIndex),
@@ -25,12 +31,4 @@ const addItem = (array, payload) => {
   return [...array.slice(0, payload.index), payload];
 }
 
-const changeArrayLength = (array, payload) => {
-  array.length = payload;
-
-  return [
-    ...array.slice()
-  ]
-};
-
-export {updateItem, deleteItem, addItem, updateArray, changeArrayLength};
+export {updateItem, deleteItem, addItem, updateArray};
