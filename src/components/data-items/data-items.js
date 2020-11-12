@@ -28,11 +28,11 @@ const DataItems = ({repositories}) => {
 };
 
 DataItem.propTypes = {
-  elem: PropTypes.any,
+  elem: PropTypes.string,
 };
 
 DataItems.propTypes = {
-  repositories: PropTypes.any,
+  repositories: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default DataItems;

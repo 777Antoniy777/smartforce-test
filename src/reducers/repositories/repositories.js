@@ -3,7 +3,9 @@ import {updateArray, changeArrayLength} from "../../actions/action-helpers";
 
 const initialState = {
   repositories: [],
+  currentRepository: '',
   repositoriesPerPage: 7,
+  page: null,
   requestData: {
     status: null,
     message: '',
@@ -16,6 +18,18 @@ export default function createState(state = initialState, action) {
       return {
         ...state,
         repositories: updateArray(state.repositories, action.payload),
+      };
+
+    case RepositoriesActionType.GET_CURRENT_REPOSITORY:
+      return {
+        ...state,
+        currentRepository: action.payload,
+      };
+
+    case RepositoriesActionType.SET_REPOSITORIES_PAGE:
+      return {
+        ...state,
+        page: action.payload,
       };
 
     case RepositoriesActionType.SET_REPOSITORIES_LENGTH:

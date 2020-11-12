@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from "react-redux";
 import {getCountRepositories, getRepositoriesRequestData} from "../../selectors/repositories/selectors";
 import {getUserRequestData} from "../../selectors/user/selectors";
+import {RepositoriesActionCreator} from "../../actions/repositories/action-creator";
 import {RepositoriesAsyncActionCreator} from "../../actions/repositories/async-action-creator";
 import {UserAsyncActionCreator} from "../../actions/user/async-action-creator";
 import {Wrapper, InputsWrapper, SearchWrapper, LoginWrapper, FormWrapper, InputWrapper, Button, ErrorMessage} from "./styles";
@@ -12,6 +13,10 @@ class Form extends React.PureComponent {
   state = {
     name: {
       value: '777Antoniy777',
+      message: '',
+    },
+    search: {
+      value: '',
       message: '',
     },
     login: {
@@ -43,9 +48,9 @@ class Form extends React.PureComponent {
 
   handleButtonClick = (evt) => {
     evt.preventDefault();
-    const {name} = this.state;
+    const {name, search} = this.state;
 
-    this.sendFormData(name);
+    this.sendFormData(name, search);
   }
 
   validateInput = (obj, name, ctx) => {
@@ -61,22 +66,29 @@ class Form extends React.PureComponent {
     }
   }
 
-  sendFormData = (name) => {
-    const {repositoriesPerPage, getRepositories, getUserData} = this.props;
+  sendFormData = (name, search) => {
+    const {repositoriesPerPage, getRepositories, getCurrentRepository, setRepositoriesPage, getUserData} = this.props;
     const {value: nameValue} = name;
+    const {value: searchValue} = search;
 
     this.validateInput(name, 'Name', this);
 
     if (nameValue) {
-      getRepositories(nameValue, repositoriesPerPage, 1);
-      getUserData(nameValue)
+      if (searchValue) {
+        getCurrentRepository(nameValue, searchValue);
+      } else {
+        getRepositories(nameValue, repositoriesPerPage, 1);
+        setRepositoriesPage(1);
+        getUserData(nameValue);
+      }
     }
   }
 
   render() {
     const {repositoriesRequestData, userRequestData} = this.props;
-    const {name, login, password} = this.state;
+    const {name, search, login, password} = this.state;
     const {value: nameValue, message: nameMessage} = name;
+    const {value: searchValue, message: searchMessage} = search;
     const {value: loginValue, message: loginMessage} = login;
     const {value: passwordValue, message: passwordMessage} = password;
 
@@ -94,7 +106,23 @@ class Form extends React.PureComponent {
                   }
                 </InputWrapper>
 
-                <Button type="submit" onClick={this.handleButtonClick}>Download</Button>
+                <InputWrapper>
+                  <label htmlFor="search">Repository</label>
+                  <input id="search" type="search" value={searchValue} name="search" placeholder="Type repository" onChange={this.handleInputChange} />
+
+                  { searchMessage &&
+                    <ErrorMessage>{searchMessage}</ErrorMessage>
+                  }
+                </InputWrapper>
+
+                <Button type="submit" onClick={this.handleButtonClick}>
+
+                  { searchValue
+                    ? 'Search'
+                    : 'Download'
+                  }
+
+                </Button>
 
                 {/* Error message */}
                 <Error
@@ -154,7 +182,9 @@ Form.propTypes = {
     })
   ),
   getRepositories: PropTypes.func,
+  setRepositoriesPage: PropTypes.func,
   getUserData: PropTypes.func,
+  getCurrentRepository: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({
@@ -166,6 +196,12 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   getRepositories: (username, count, page) => {
     dispatch(RepositoriesAsyncActionCreator.getRepositories(username, count, page));
+  },
+  getCurrentRepository: (username, repository) => {
+    dispatch(RepositoriesAsyncActionCreator.getCurrentRepository(username, repository));
+  },
+  setRepositoriesPage: (page) => {
+    dispatch(RepositoriesActionCreator.setRepositoriesPage(page));
   },
   getUserData: (username) => {
     dispatch(UserAsyncActionCreator.getUserData(username));

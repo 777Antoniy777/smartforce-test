@@ -8,9 +8,10 @@ class PaginationItem extends React.PureComponent {
   }
 
   handleButtonClick = (evt) => {
-    const {username, repositoriesPerPage, elem, getRepositories} = this.props;
+    const {username, repositoriesPerPage, elem, getRepositories, setRepositoriesPage} = this.props;
     evt.preventDefault();
     const isExistArray = this.checkArray();
+    setRepositoriesPage(elem);
 
     if (elem !== 1 && !isExistArray) {
       getRepositories(username, repositoriesPerPage, elem);
@@ -36,7 +37,7 @@ class PaginationItem extends React.PureComponent {
   }
 }
 
-const PaginationItems = ({repositories, username, repositoriesPerPage, reposAmount, getRepositories}) => {
+const PaginationItems = ({repositories, username, repositoriesPerPage, reposAmount, getRepositories, setRepositoriesPage}) => {
   const buttons = [];
   const pageAmount = Math.ceil(reposAmount / repositoriesPerPage);
 
@@ -52,6 +53,7 @@ const PaginationItems = ({repositories, username, repositoriesPerPage, reposAmou
         repositoriesPerPage={repositoriesPerPage}
         // handlers
         getRepositories={getRepositories}
+        setRepositoriesPage={setRepositoriesPage}
       />
     );
   }
@@ -74,6 +76,7 @@ PaginationItem.propTypes = {
   username: PropTypes.string,
   repositoriesPerPage: PropTypes.number,
   getRepositories: PropTypes.func,
+  setRepositoriesPage: PropTypes.func,
 };
 
 PaginationItems.propTypes = {
@@ -82,7 +85,7 @@ PaginationItems.propTypes = {
   repositoriesPerPage: PropTypes.number,
   reposAmount: PropTypes.number,
   getRepositories: PropTypes.func,
+  setRepositoriesPage: PropTypes.func,
 };
-
 
 export default PaginationItems;

@@ -4,11 +4,10 @@ import {RepositoriesActionCreator} from "../repositories/action-creator";
 
 const UserAsyncActionCreator = {
   getUserData: (username) => (dispatch, getState, api) => {
-    return api.get(`https://api.github.com/users/${username}`, {
+    return api.get(`users/${username}`, {
       accept: 'application/vnd.github.v3+json',
     })
       .then((response) => {
-        console.log(response.data)
         let {data} = response;
 
         dispatch(UserActionCreator.setUsername(username));
@@ -20,6 +19,7 @@ const UserAsyncActionCreator = {
         }));
       })
       .catch((error) => {
+        // dispatch(UserActionCreator.setUsername(''));
         dispatch(UserActionCreator.setRequestData({
           status: RequestStatus.ERROR,
           message: RequestMessage.ERROR_MESSAGE,
